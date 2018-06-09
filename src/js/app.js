@@ -29,11 +29,10 @@ App = {
      */
 	// Is there an injected web3 instance?
 	if (typeof web3 !== 'undefined') {
-	  //App.web3Provider = web3.currentProvider;
-	  App.web3Provider = new Web3.providers.HttpProvider('http://192.168.56.101:8545');
+	  App.web3Provider = web3.currentProvider;
 	} else {
 	  // If no injected web3 instance is detected, fall back to Ganache
-	  App.web3Provider = new Web3.providers.HttpProvider('http://192.168.56.101:8545');
+	  App.web3Provider = new Web3.providers.HttpProvider('http://127.0.0.1:8545');
 	}
 	web3 = new Web3(App.web3Provider);
 
