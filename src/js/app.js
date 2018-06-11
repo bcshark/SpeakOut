@@ -32,7 +32,7 @@ App = {
             App.web3Provider = web3.currentProvider;
         } else {
             // If no injected web3 instance is detected, fall back to Ganache
-            App.web3Provider = new Web3.providers.HttpProvider('http://192.168.43.149:8545');
+            App.web3Provider = new Web3.providers.HttpProvider('http://192.168.1.8:8545');
         }
         web3 = new Web3(App.web3Provider);
 
