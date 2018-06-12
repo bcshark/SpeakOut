@@ -8,53 +8,57 @@ contract TestAdoption {
 	Adoption adoption = Adoption(DeployedAddresses.Adoption());
 
 	function testUserCanNewPoster() public {
-		string memory returnedName = adoption.newPoster("Tester");
-
 		string memory expected = "Tester";
+		string memory returnedName = adoption.newPoster("Tester");
 
 		Assert.equal(returnedName, expected, "Poster's name should be recorded.");
 	}
 
 	function testUserCanGetPoster() public {
-		string memory expected = adoption.newPoster("Tester");
-
+		string memory expected = "Tester";
 		string memory stored = adoption.getPosterName(this);
 
 		Assert.equal(stored, expected, "Poster's name should be readable.");
 	}
 
-	function testUserCanNewTopic() public {
-		adoption.newPoster("Tester");
+	function testUserNonExistentPosterNameShouldBeEmpty() public {
+		string memory expected = "";
+		string memory stored = adoption.getPosterName(0x0000000000000000000000000000000000000000);
 
+		Assert.equal(stored, expected, "Non existent poster's name should be empty.");
+	}
+
+	function testUserCanNewTopic() public {
 		uint expected = 0;
 		uint newTopicId = adoption.newTopic("title", "content", 1528731791, 1528731791 + 3600 * 24);
 
 		Assert.equal(newTopicId, expected, "New topic should be recorded.");
+		Assert.equal(topicCount, expectedCount, "Number of topics should be correct.");
+	}
 
-		uint expectedCount = 1;
+	function testUserCanNewTopicLongContent() public {
+		uint expected = 1;
+		uint newTopicId = adoption.newTopic("title", "1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890", 1528731791, 1528731791 + 3600 * 24);
+
+		Assert.equal(newTopicId, expected, "New topic should be recorded.");
+	}
+
+	function testUserCanGetTopicCount() public {
+		uint expectedCount = 2;
 		uint topicCount = adoption.getTopicCount();
 
 		Assert.equal(topicCount, expectedCount, "Number of topics should be correct.");
 	}
 
-	/*
-	function testGetAdopterAddressByPetId() public {
-		// Expected owner is this contract
-		address expected = this;
+	function testUserCanGetTopicDetailByTopicId() public {
+		uint topicId = 0;
+		(string memory title, string memory content, uint64 createdAt, uint64 updatedAt, uint64 expiredAt, string memory authorName) = adoption.getTopicDetail(topicId);
 
-		address adopter = adoption.adopters(8);
-
-		Assert.equal(adopter, expected, "Owner of pet ID 8 should be recorded.");
+		Assert.equal(title, "title", "Topic's title should be same as input.");
+		Assert.equal(content, "content", "Topic's content should be same as input.");
+		Assert.isTrue(createdAt == 1528731791, "Topic's createdAt should be same as input.");
+		Assert.isTrue(updatedAt == 1528731791, "Topic's updatedAt should be same as input.");
+		Assert.isTrue(expiredAt == 1528731791 + 3600 * 24, "Topic's expiredAt should be same as input.");
+		Assert.equal(authorName, "Tester", "Topic's author name should be same as input.");
 	}
-
-	function testGetAdopterAddressByPetIdInArray() public {
-		// Expected owner is this contract
-		address expected = this;
-
-		// Store adopters in memory rather than contract's storage
-		address[16] memory adopters = adoption.getAdopters();
-
-		Assert.equal(adopters[8], expected, "Owner of pet ID 8 should be recorded.");
-	}
-	*/
 }

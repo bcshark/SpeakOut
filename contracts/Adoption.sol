@@ -7,6 +7,7 @@ contract Adoption {
 	}
 
 	struct Post {
+		uint postId;
 		Poster author;
 		string content;
 		uint8 mark;
@@ -30,6 +31,10 @@ contract Adoption {
 	mapping(uint => Topic) public topics;
 	mapping(address => Poster) public posters;
 
+	function isPosterExists(address addr) public returns (bool isExists) {
+		isExists = false;
+	}
+
 	function newPoster(string name) public returns (string posterName) {
 		posterName = name;
 		posters[msg.sender] = Poster({
@@ -40,10 +45,6 @@ contract Adoption {
 
 	function getPosterName(address addr) public view returns (string posterName) {
 		posterName = posters[addr].name;
-	}
-
-    function getTopicCount() public view returns (uint topicCount) {
-		topicCount = numTopics;
 	}
 
 	function newTopic(string title, string content, uint64 updatedAt, uint64 expiredAt) public returns (uint topicId) {
@@ -73,17 +74,37 @@ contract Adoption {
 		authorName = topic.author.name;
 	}
 
-	/*
-	function adopt(uint petId) public returns (uint) {
-		require(petId >= 0 && petId <= 15);
-
-		adopters[petId] = msg.sender;
-
-		return petId;
+    function getTopicCount() public view returns (uint topicCount) {
+		topicCount = numTopics;
 	}
 
-	function getAdopters() public view returns (address[16]) {
-		return adopters;
+	function newPost(uint topicId, string content, uint8 mark, uint64 createdAt) public returns (uint postId) {
+		Poster storage author = posters[msg.sender];
+		Topic storage topic = topics[topicId];
+
+		postId = topic.numPosts++;
+		topic.posts[postId] = Post(
+			postId,
+			author,
+			content,
+			mark,
+			createdAt
+		);
 	}
-	*/
+
+	function getPostDetail(uint topicId, uint postId) public view returns (string content, uint64 createdAt, uint8 mark, string authorName) {
+		Topic storage topic = topics[topicId];
+		Post storage post = topic.posts[postId];
+
+		content = post.content;
+		mark = post.mark;
+		createdAt = post.createdAt;
+		authorName = post.author.name;
+	}
+
+    function getPostCountByTopic(uint topicId) public view returns (uint postCount) {
+		Topic storage topic = topics[topicId];
+
+		postCount = topic.numPosts;
+	}
 }
