@@ -1,5 +1,7 @@
 angular.module('SpeakOutApp', ['ngRoute', 'ngResource', 'cgBusy', 'ui.bootstrap'])
 
+.service('TopicService', TopicService)
+.service('PosterService', PosterService)
 .controller('MainController', function($scope, $route, $routeParams, $location) {
 	$scope.$route = $route;
 	$scope.$location = $location;
