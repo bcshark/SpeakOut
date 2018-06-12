@@ -33,7 +33,6 @@ contract TestAdoption {
 		uint newTopicId = adoption.newTopic("title", "content", 1528731791, 1528731791 + 3600 * 24);
 
 		Assert.equal(newTopicId, expected, "New topic should be recorded.");
-		Assert.equal(topicCount, expectedCount, "Number of topics should be correct.");
 	}
 
 	function testUserCanNewTopicLongContent() public {
@@ -60,5 +59,33 @@ contract TestAdoption {
 		Assert.isTrue(updatedAt == 1528731791, "Topic's updatedAt should be same as input.");
 		Assert.isTrue(expiredAt == 1528731791 + 3600 * 24, "Topic's expiredAt should be same as input.");
 		Assert.equal(authorName, "Tester", "Topic's author name should be same as input.");
+	}
+
+	function testUserCanNewPostOnTopic() public {
+		uint topicId = 0;
+		uint expected = 0;
+
+		uint newPostId = adoption.newPost(topicId, "post content", 5, 1528731791);
+
+		Assert.equal(newPostId, expected, "New post should be recorded.");
+	}
+
+	function testUserCanGetPostCountByTopic() public {
+		uint topicId = 0;
+		uint expectedCount = 1;
+		uint postCount = adoption.getPostCountByTopic(topicId);
+
+		Assert.equal(postCount, expectedCount, "Number of posts should be correct.");
+	}
+
+	function testUserCanGetPostDetailByTopicIdAndPostId() public {
+		uint topicId = 0;
+		uint postId = 0;
+		(string memory content, uint64 createdAt, uint8 mark, string memory authorName) = adoption.getPostDetail(topicId, postId);
+
+		Assert.equal(content, "post content", "Post's content should be same as input.");
+		Assert.isTrue(createdAt == 1528731791, "Post's createdAt should be same as input.");
+		Assert.isTrue(mark == 5, "Post's mark should be same as input.");
+		Assert.equal(authorName, "Tester", "Post's author name should be same as input.");
 	}
 }
