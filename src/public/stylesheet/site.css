@@ -1,0 +1,60 @@
+.fix-title-bar {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 40px;
+	text-align: center;
+	line-height: 40px;
+	color: #fff;
+	z-index: 100;
+}
+
+.fix-title-bar .navbar-header {
+	font-size: 16px;
+}
+
+.fix-title-bar .navbar-nav {
+	font-size: 12px;
+	text-align: left;
+}
+
+.fix-content {
+	margin-top: 50px;
+	padding-top: 10px;
+}
+
+.navbar-item {
+	cursor: pointer;
+}
+
+.kline-filters {
+	position: relative; 
+	top: 0; 
+	left: 10; 
+	float: left;
+	z-index: 99;
+}
+
+.symbol-dropdown {
+
+}
+
+.market-dropdown-item {
+	color: #337ab7;
+	font-size: 12px;
+	text-align: left;
+	cursor: pointer;
+}
+.market-dropdown {
+
+}
+
+.symbol-dropdown-item {
+	color: #337ab7;
+	padding-bottom: 5px; 
+	padding-top: 5px;
+	font-size: 12px;
+	text-align: left;
+	cursor: pointer;
+}
