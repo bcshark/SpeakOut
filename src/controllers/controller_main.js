@@ -1,5 +1,6 @@
 angular.module('SpeakOutApp', ['ngRoute', 'ngResource', 'cgBusy', 'ui.bootstrap'])
 
+.service('ConfigService', ConfigService)
 .service('TopicService', TopicService)
 .service('PosterService', PosterService)
 .controller('MainController', function($scope, $route, $routeParams, $location) {
@@ -10,11 +11,11 @@ angular.module('SpeakOutApp', ['ngRoute', 'ngResource', 'cgBusy', 'ui.bootstrap'
 .config(function($routeProvider, $locationProvider) {
 	$routeProvider
 		.when('/', {
-			templateUrl: 'views/topics.html',
-			controller: TopicController,
-		})
-		.when('/register', {
 			templateUrl: 'views/register.html',
 			controller: RegisterController,
+		})
+		.when('/topics', {
+			templateUrl: 'views/topics.html',
+			controller: TopicController,
 		});
 });
