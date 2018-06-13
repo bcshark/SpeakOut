@@ -1,6 +1,6 @@
 "use strict";
 
-var PosterService = ['$resource', '$http', 'ConfigService', function($resource, $http, configService) {
+var AdoptionService = ['$resource', '$http', 'ConfigService', function($resource, $http, configService) {
     var service = {
         web3Provider: null,
         contracts: {},

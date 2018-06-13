@@ -1,8 +1,13 @@
 "use strict";
 
-var RegisterController = ['$scope', '$http', '$interval', '$location', 'PosterService',
-    function($scope, $http, $interval, $location, posterService) {
+var RegisterController = ['$scope', '$http', '$interval', '$location', 'AdoptionService',
+    function($scope, $http, $interval, $location, adoptionService) {
         var adoption = null;
+
+        $scope.isContractReady = false;
+        $scope.isUserRegistered = false;
+        $scope.alerts = [];
+        $scope.alertDismissTimeout = 3000;
 
         var tryGetRegisteredName = function() {
             // check whether account is already registered
@@ -14,14 +19,25 @@ var RegisterController = ['$scope', '$http', '$interval', '$location', 'PosterSe
                 var account = accounts[0];
 
                 adoption.getPosterName(account).then(function(posterName) {
-                    $scope.$apply(function() {
-                        $scope.username = posterName;
-                    });
+                    if (posterName) {
+                        $scope.$apply(function() {
+                            $scope.username = posterName;
+                            $scope.isUserRegistered = true;
+                        });
+                    }
                 });
             });
         };
 
+        $scope.enter = function() {
+            if (!$scope.isContractReady || !$scope.isUserRegistered) return;
+
+            $location.path('/topics');
+        };
+
         $scope.register = function() {
+            if (!$scope.isContractReady) return;
+
             var test = adoption.newPoster($scope.username).then(function(receipt) {
                 console.log(receipt);
 
@@ -33,13 +49,24 @@ var RegisterController = ['$scope', '$http', '$interval', '$location', 'PosterSe
             });
         };
 
-        posterService.ready(function(service) {
-            console.log('contract is ready.');
+        $scope.closeAlert = function(index) {
+            $scope.alerts.splice(index, 1);
+        };
+
+        adoptionService.ready(function(service) {
             adoption = service;
+
+            $scope.$apply(function() {
+                $scope.alerts.push({
+                    type: 'success',
+                    msg: 'Successfully open contract!'
+                });
+                $scope.isContractReady = true;
+            });
 
             tryGetRegisteredName();
         });
 
-        posterService.initWeb3();
+        adoptionService.initWeb3();
     }
 ];

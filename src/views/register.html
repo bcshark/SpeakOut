@@ -1,22 +1,25 @@
 <div cg-busy="{ promise: promise }">
+    <div uib-alert ng-repeat="alert in alerts" ng-class="'alert-' + (alert.type || 'warning')" close="closeAlert($index)" dismiss-on-timeout="{{ alertDismissTimeout }}">{{alert.msg}}</div>
     <div class="login">
-        <a class="hiddenanchor" id="signup"></a>
-        <a class="hiddenanchor" id="signin"></a>
         <div class="login_wrapper">
             <div id="register" class="animate form registration_form">
-                <section class="login_content">
+                <section ng-if="isUserRegistered" class="login_content">
+                    <form>
+                        <h1>Welcome back!</h1>
+                        <h1><strong>{{ username }}</strong></h1>
+                        <div>
+                            <a class="btn btn-default" ng-click="enter()" ng-disabled="!isContractReady">Enter</a>
+                        </div>
+                    </form>
+                </section>
+                <section ng-if="!isUserRegistered" class="login_content">
                     <form>
                         <h1>Create Account</h1>
                         <div>
                             <input type="text" class="form-control" placeholder="Username" required="" ng-model="username" />
                         </div>
                         <div>
-                            <textarea class="form-control" placeholder="Phase" required="" rows="3" ng-model="phase">
-                            	
-                            </textarea>
-                        </div>
-                        <div>
-                            <a class="btn btn-default submit" ng-click="register()">Submit</a>
+                            <a class="btn btn-default submit" ng-click="register()" ng-disabled="!isContractReady">Submit</a>
                         </div>
                         <div class="clearfix"></div>
                         <div class="separator">

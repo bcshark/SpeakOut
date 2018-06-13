@@ -2,7 +2,7 @@ module.exports = {
     license: "MIT",
     networks: {
         development: {
-            host: "192.168.2.103",
+            host: "192.168.43.149",
             port: 8545,
             network_id: "*"
         }

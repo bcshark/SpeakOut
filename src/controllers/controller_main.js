@@ -1,8 +1,7 @@
 angular.module('SpeakOutApp', ['ngRoute', 'ngResource', 'cgBusy', 'ui.bootstrap'])
 
 .service('ConfigService', ConfigService)
-.service('TopicService', TopicService)
-.service('PosterService', PosterService)
+.service('AdoptionService', AdoptionService)
 .controller('MainController', function($scope, $route, $routeParams, $location) {
 	$scope.$route = $route;
 	$scope.$location = $location;

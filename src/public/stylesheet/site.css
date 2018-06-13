@@ -195,6 +195,18 @@
     line-height: 40px;
     color: #fff;
     z-index: 100;
+    background: linear-gradient(180deg, rgba(232, 61, 81, 1) 95%, rgba(232, 61, 81, 0) 100%);
+}
+
+div.right-panel {
+    height: 100%;
+    position: absolute;
+    vertical-align: middle;
+    top: 0;
+    right: 0;
+    font-size: 12px;
+    padding-right: 5px;
+    cursor: pointer;
 }
 
 .fix-title-bar .navbar-header {
@@ -208,37 +220,62 @@
 
 .fix-content {
     margin-top: 50px;
-    padding-top: 10px;
 }
 
 .navbar-item {
     cursor: pointer;
 }
 
-.kline-filters {
+.topic_row {
     position: relative;
-    top: 0;
-    left: 10;
+    display: block;
+    height: 44px;
+    border: 1px solid rgba(232, 61, 81, 0.2);
+    margin: 2px;
+}
+
+.topic_index {
+    position: absolute;
     float: left;
-    z-index: 99;
+    top: 0px;
+    left: 0px;
+    background-color: rgba(232, 61, 81, 1);
+    font-size: 16px;
+    height: 42px;
+    line-height: 42px;
+    width: 36px;
+    color: #fff;
+    text-align: center;
 }
 
-.symbol-dropdown {}
-
-.market-dropdown-item {
-    color: #337ab7;
-    font-size: 12px;
-    text-align: left;
-    cursor: pointer;
+.topic_title {
+    position: absolute;
+    float: left;
+    top: 0px;
+    left: 40px;
+    font-size: 14px;
+    height: 22px;
+    line-height: 22px;
+    font-weight: bold;
 }
 
-.market-dropdown {}
-
-.symbol-dropdown-item {
-    color: #337ab7;
-    padding-bottom: 5px;
-    padding-top: 5px;
+.topic_author {
+    position: absolute;
+    float: left;
+    top: 22px;
+    left: 40px;
     font-size: 12px;
-    text-align: left;
-    cursor: pointer;
+    height: 20px;
+    width: 80px;
+    line-height: 20px;
+}
+
+.topic_created {
+    position: absolute;
+    float: right;
+    top: 22px;
+    right: 10px;
+    font-size: 12px;
+    height: 20px;
+    line-height: 20px;
 }
