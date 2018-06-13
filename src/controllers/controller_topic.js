@@ -10,9 +10,11 @@ var TopicController = ['$scope', '$http', '$interval', '$location', '$window', '
 
         var tryGetTopics = function() {
             adoption.getTopicCount.call().then(function(topicCount) {
-                console.log('topicCount: ' + topicCount);
+                console.log('topicCount: ' + topicCount.toNumber());
 
-                for (var i = topicCount.toNumber() - 1; i >= 0; i--) {
+                var max_count = Math.max(topicCount.toNumber() - 10, 0);
+
+                for (var i = topicCount.toNumber() - 1; i >= max_count; i--) {
                     adoption.getTopicDetail.call(i).then(function(result) {
                         console.log(result);
 
