@@ -51,7 +51,7 @@ contract TestAdoption {
 
 	function testUserCanGetTopicDetailByTopicId() public {
 		uint topicId = 0;
-		(string memory title, string memory content, uint64 createdAt, uint64 updatedAt, uint64 expiredAt, string memory authorName) = adoption.getTopicDetail(topicId);
+		(uint id, string memory title, string memory content, uint64 createdAt, uint64 updatedAt, uint64 expiredAt, string memory authorName) = adoption.getTopicDetail(topicId);
 
 		Assert.equal(title, "title", "Topic's title should be same as input.");
 		Assert.equal(content, "content", "Topic's content should be same as input.");
@@ -81,7 +81,7 @@ contract TestAdoption {
 	function testUserCanGetPostDetailByTopicIdAndPostId() public {
 		uint topicId = 0;
 		uint postId = 0;
-		(string memory content, uint64 createdAt, uint8 mark, string memory authorName) = adoption.getPostDetail(topicId, postId);
+		(uint id, string memory content, uint64 createdAt, uint8 mark, string memory authorName) = adoption.getPostDetail(topicId, postId);
 
 		Assert.equal(content, "post content", "Post's content should be same as input.");
 		Assert.isTrue(createdAt == 1528731791, "Post's createdAt should be same as input.");

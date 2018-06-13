@@ -1,0 +1,43 @@
+<div cg-busy="{ promise: promise }">
+    <div uib-alert ng-repeat="alert in alerts" ng-class="'alert-' + (alert.type || 'warning')" close="closeAlert($index)" dismiss-on-timeout="{{ alertDismissTimeout }}">{{alert.msg}}</div>
+    <div class="fix-title-bar">
+        <div class="navbar-header">{{ topic.title }}</div>
+        <div class="left-panel" ng-click="backToTopics()">
+            <i class="fas fa-angle-left"></i>
+        </div>
+        <div class="right-panel" ng-click="showSaveCommentDialog(null)">
+            <i class="fas fa-plus-square"></i> Comment
+        </div>
+    </div>
+    <div class="fix-content">
+        <div class="topic_detail">
+            <div class="topic_detail_title">{{ topic.title }}</div>
+            <div class="topic_detail_created">{{ topic.authorName }} / {{ topic.createdAt | date: 'yyyy-MM-dd HH:mm:ss' }}</div>
+            <div class="topic_detail_content">{{ topic.content }}</div>
+            <div class="topic_detail_comments">
+                <div ng-repeat="comment in comments" class="comment_detail">
+                	<div class="comment_author">{{ comment.authorName }} :</div>
+                    <div class="comment_content">{{ comment.content }}</div>
+                    <div class="comment_created">{{ comment.createdAt | date: 'yyyy-MM-dd HH:mm:ss' }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script id="SaveCommentDialog.html" type="text/ng-template">
+        <div class="modal-header">
+            <h3 class="modal-title">New Comment</h3>
+        </div>
+        <div class="modal-body">
+            <form>
+                <div class="form-group">
+                    <label for="saveTopicDialogContent">Content</label>
+                    <textarea id="saveTopicDialogContent" type="text" class="form-control" placeholder="Content" rows="3" ng-model="comment.content"></textarea>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-success" type="button" ng-click="ok()">Save</button>
+            <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+        </div>
+    </script>
+</div>

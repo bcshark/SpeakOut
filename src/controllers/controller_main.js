@@ -16,5 +16,9 @@ angular.module('SpeakOutApp', ['ngRoute', 'ngResource', 'cgBusy', 'ui.bootstrap'
 		.when('/topics', {
 			templateUrl: 'views/topics.html',
 			controller: TopicController,
+		})
+		.when('/topic/:topicId', {
+			templateUrl: 'views/topic_view.html',
+			controller: TopicViewController,
 		});
 });

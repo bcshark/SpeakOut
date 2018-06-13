@@ -6,7 +6,7 @@
                 <section ng-if="isUserRegistered" class="login_content">
                     <form>
                         <h1>Welcome back!</h1>
-                        <h1><strong>{{ username }}</strong></h1>
+                        <h1><strong>{{ user.username }}</strong></h1>
                         <div>
                             <a class="btn btn-default" ng-click="enter()" ng-disabled="!isContractReady">Enter</a>
                         </div>
@@ -16,7 +16,7 @@
                     <form>
                         <h1>Create Account</h1>
                         <div>
-                            <input type="text" class="form-control" placeholder="Username" required="" ng-model="username" />
+                            <input type="text" class="form-control" placeholder="Username" required="" ng-model="user.username" />
                         </div>
                         <div>
                             <a class="btn btn-default submit" ng-click="register()" ng-disabled="!isContractReady">Submit</a>

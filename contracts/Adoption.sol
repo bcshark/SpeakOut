@@ -63,9 +63,10 @@ contract Adoption {
 		);
 	}
 
-	function getTopicDetail(uint topicId) public view returns (string title, string content, uint64 createdAt, uint64 updatedAt, uint64 expiredAt, string authorName) {
+	function getTopicDetail(uint topicId) public view returns (uint id, string title, string content, uint64 createdAt, uint64 updatedAt, uint64 expiredAt, string authorName) {
 		Topic storage topic = topics[topicId];
 
+		id = topicId;
 		title = topic.title;
 		content = topic.content;
 		createdAt = topic.createdAt;
@@ -92,10 +93,11 @@ contract Adoption {
 		);
 	}
 
-	function getPostDetail(uint topicId, uint postId) public view returns (string content, uint64 createdAt, uint8 mark, string authorName) {
+	function getPostDetail(uint topicId, uint postId) public view returns (uint id, string content, uint64 createdAt, uint8 mark, string authorName) {
 		Topic storage topic = topics[topicId];
 		Post storage post = topic.posts[postId];
 
+		id = postId;
 		content = post.content;
 		mark = post.mark;
 		createdAt = post.createdAt;

@@ -8,6 +8,7 @@ var RegisterController = ['$scope', '$http', '$interval', '$location', 'Adoption
         $scope.isUserRegistered = false;
         $scope.alerts = [];
         $scope.alertDismissTimeout = 3000;
+        $scope.user = {};
 
         var tryGetRegisteredName = function() {
             // check whether account is already registered
@@ -19,9 +20,9 @@ var RegisterController = ['$scope', '$http', '$interval', '$location', 'Adoption
                 var account = accounts[0];
 
                 adoption.getPosterName(account).then(function(posterName) {
-                    if (posterName) {
+                    if (posterName !== undefined && posterName !== null && posterName !== '') {
                         $scope.$apply(function() {
-                            $scope.username = posterName;
+                            $scope.user.username = posterName;
                             $scope.isUserRegistered = true;
                         });
                     }
@@ -38,7 +39,7 @@ var RegisterController = ['$scope', '$http', '$interval', '$location', 'Adoption
         $scope.register = function() {
             if (!$scope.isContractReady) return;
 
-            var test = adoption.newPoster($scope.username).then(function(receipt) {
+            var test = adoption.newPoster($scope.user.username).then(function(receipt) {
                 console.log(receipt);
 
                 $scope.$apply(function() {

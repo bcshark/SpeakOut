@@ -19,12 +19,13 @@ var TopicController = ['$scope', '$http', '$interval', '$location', '$window', '
                         console.log(result);
 
                         var topic = {
-                            title: result[0],
-                            content: result[1],
-                            createdAt: result[2].toNumber(),
-                            updatedAt: result[3].toNumber(),
-                            expiredAt: result[4].toNumber(),
-                            authorName: result[5]
+                            topicId: result[0],
+                            title: result[1],
+                            content: result[2],
+                            createdAt: result[3].toNumber(),
+                            updatedAt: result[4].toNumber(),
+                            expiredAt: result[5].toNumber(),
+                            authorName: result[6]
                         };
 
                         $scope.$apply(function() {
@@ -61,7 +62,10 @@ var TopicController = ['$scope', '$http', '$interval', '$location', '$window', '
             }, function() {
                 // dialog cancelled                         
             });
+        };
 
+        $scope.showTopicDetail = function(topic) {
+            $location.path('/topic/' + topic.topicId);
         };
 
         adoptionService.ready(function(service) {
