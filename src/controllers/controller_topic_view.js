@@ -3,6 +3,7 @@
 var TopicViewController = ['$scope', '$http', '$interval', '$location', '$window', '$routeParams', '$uibModal', 'AdoptionService',
     function($scope, $http, $interval, $location, $window, $routeParams, $uibModal, adoptionService) {
         var adoption = null;
+        var ownedCoins = 0;
 
         $scope.topicId = $routeParams['topicId'];
         $scope.isContractReady = false;
@@ -55,6 +56,12 @@ var TopicViewController = ['$scope', '$http', '$interval', '$location', '$window
             });
         };
 
+        var tryGetOwnedCoins = function() {
+            adoption.getBalance.call().then(function(coins) {
+                ownedCoins = coins;
+            });
+        };
+
         $scope.backToTopics = function() {
             $location.path('/topics/');
         }
@@ -69,6 +76,9 @@ var TopicViewController = ['$scope', '$http', '$interval', '$location', '$window
                 resolve: {
                     comment: function() {
                         return comment;
+                    },
+                    ownedCoins: function() {
+                        return ownedCoins;
                     }
                 }
             });
@@ -95,15 +105,17 @@ var TopicViewController = ['$scope', '$http', '$interval', '$location', '$window
 
             tryGetTopicDetail();
             tryGetComments();
+            tryGetOwnedCoins();
         });
 
         adoptionService.initWeb3();
     }
 ];
 
-var SaveCommentDialogController = ['$scope', '$uibModalInstance', 'comment',
-    function($scope, $uibModalInstance, comment) {
+var SaveCommentDialogController = ['$scope', '$uibModalInstance', 'comment', 'ownedCoins',
+    function($scope, $uibModalInstance, comment, ownedCoins) {
         $scope.comment = comment || { content: '', mark: 5, tips: 0 };
+        $scope.ownedCoins = ownedCoins;
 
         $scope.ok = function() {
             $uibModalInstance.close({ action: 'save', comment: $scope.comment });

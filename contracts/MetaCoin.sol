@@ -13,11 +13,11 @@ contract MetaCoin {
 		balances[owner] = DEFAULT_INITIAL_BALANCE;
 	}
 
-	function sendCoin(address receiver, uint amount) public returns(bool sufficient) {
-		if (balances[msg.sender] < amount) return false;
-		balances[msg.sender] -= amount;
+	function sendCoin(address sender, address receiver, uint amount) public returns(bool sufficient) {
+		if (balances[sender] < amount) return false;
+		balances[sender] -= amount;
 		balances[receiver] += amount;
-		emit Transfer(msg.sender, receiver, amount);
+		emit Transfer(sender, receiver, amount);
 		return true;
 	}
 

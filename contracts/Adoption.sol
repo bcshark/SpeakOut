@@ -65,7 +65,7 @@ contract Adoption {
 			createdAt: now
 		});
 
-		require(metaCoin.sendCoin(msg.sender, DEFAULT_NEW_USER_REWARD));
+		require(metaCoin.sendCoin(this, msg.sender, DEFAULT_NEW_USER_REWARD));
 	}
 
 	function getBalance() public view returns (uint balance) {
@@ -92,7 +92,7 @@ contract Adoption {
 			0
 		);
 
-		require(metaCoin.sendCoin(msg.sender, DEFAULT_NEW_TOPIC_REWARD));
+		require(metaCoin.sendCoin(this, msg.sender, DEFAULT_NEW_TOPIC_REWARD));
 	}
 
 	function getTopicDetail(uint topicId) public view returns (uint id, string title, string content, uint createdAt, uint updatedAt, uint expiredAt, string authorName) {
@@ -127,10 +127,10 @@ contract Adoption {
 		);
 
 		if (tips > 0) {
-			require(metaCoin.sendCoin(topic.author.addr, tips));
+			require(metaCoin.sendCoin(msg.sender, topic.author.addr, tips));
 		}
 
-		require(metaCoin.sendCoin(msg.sender, DEFAULT_NEW_COMMENT_REWARD));
+		require(metaCoin.sendCoin(this, msg.sender, DEFAULT_NEW_COMMENT_REWARD));
 	}
 
 	function getPostDetail(uint topicId, uint postId) public view returns (uint id, string content, uint createdAt, uint8 mark, uint8 tips, string authorName) {

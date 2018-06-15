@@ -371,6 +371,11 @@ div.right-panel {
     font-size: 10px;
 }
 
+.comment_tips {
+    font-size: 10px;
+    color: #999;
+}
+
 .topic_detail_created {
     font-size: 10px;
     text-align: right;
