@@ -12,15 +12,18 @@
     <div class="fix-content">
         <div class="topic_detail">
             <div class="topic_detail_title">{{ topic.title }}</div>
-            <div class="topic_detail_created">{{ topic.authorName }} / {{ topic.createdAt | date: 'yyyy-MM-dd HH:mm:ss' }}</div>
+            <div class="topic_detail_created">{{ topic.authorName }} | {{ topic.createdAt | date: 'yyyy-MM-dd HH:mm:ss' }}</div>
             <div class="topic_detail_content">{{ topic.content }}</div>
-            <div class="topic_detail_comments">
-                <div ng-repeat="comment in comments" class="comment_detail">
-                	<div class="comment_author">{{ comment.authorName }} :</div>
-                    <div class="comment_content">{{ comment.content }}</div>
-                    <div class="comment_created">{{ comment.createdAt | date: 'yyyy-MM-dd HH:mm:ss' }}</div>
-                </div>
-            </div>
+        </div>
+    </div>
+    <div class="topic_detail_comments">
+        <div class="comment_detail_empty" ng-if="!comments || comments.length == 0" ng-click="showSaveCommentDialog(null)">
+            Post a new comment now.
+        </div>
+        <div ng-repeat="comment in comments" class="comment_detail">
+            <div class="comment_author">{{ comment.authorName }} :</div>
+            <div class="comment_content">{{ comment.content }}</div>
+            <div class="comment_created">{{ comment.createdAt | date: 'yyyy-MM-dd HH:mm:ss' }}</div>
         </div>
     </div>
     <script id="SaveCommentDialog.html" type="text/ng-template">
@@ -32,6 +35,10 @@
                 <div class="form-group">
                     <label for="saveTopicDialogContent">Content</label>
                     <textarea id="saveTopicDialogContent" type="text" class="form-control" placeholder="Content" rows="3" ng-model="comment.content"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="saveTopicDialogTips">Tips (Optional)</label>
+                    <input type="number" id="saveTopicDialogTips" class="form-control" placeholder="0.0001 ether" ng-model="comment.tips">
                 </div>
             </form>
         </div>

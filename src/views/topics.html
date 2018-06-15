@@ -3,10 +3,13 @@
     <div class="fix-title-bar">
         <div class="navbar-header">Topics</div>
         <div class="right-panel" ng-click="showSaveTopicDialog(null)">
-            <i class="fas fa-plus-square"></i> New
+            <i class="fas fa-plus-square"></i> Topic
         </div>
     </div>
     <div class="fix-content">
+        <div class="topic_row_empty" ng-if="!topics || topics.length == 0" ng-click="showSaveTopicDialog(null)">
+            Post a new topic now.
+        </div>
         <div class="topic_row" ng-repeat="topic in topics" ng-click="showTopicDetail(topic)">
             <div class="topic_index">{{ $index + 1 }}</div>
             <div class="topic_title">{{ topic.title }}</div>

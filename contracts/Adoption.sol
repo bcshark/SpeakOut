@@ -11,6 +11,7 @@ contract Adoption {
 		Poster author;
 		string content;
 		uint8 mark;
+		uint8 tips;
 		uint64 createdAt;
 	}
 
@@ -79,7 +80,7 @@ contract Adoption {
 		topicCount = numTopics;
 	}
 
-	function newPost(uint topicId, string content, uint8 mark, uint64 createdAt) public returns (uint postId) {
+	function newPost(uint topicId, string content, uint8 mark, uint8 tips, uint64 createdAt) public returns (uint postId) {
 		Poster storage author = posters[msg.sender];
 		Topic storage topic = topics[topicId];
 
@@ -89,17 +90,19 @@ contract Adoption {
 			author,
 			content,
 			mark,
+			tips,
 			createdAt
 		);
 	}
 
-	function getPostDetail(uint topicId, uint postId) public view returns (uint id, string content, uint64 createdAt, uint8 mark, string authorName) {
+	function getPostDetail(uint topicId, uint postId) public view returns (uint id, string content, uint64 createdAt, uint8 mark, uint8 tips, string authorName) {
 		Topic storage topic = topics[topicId];
 		Post storage post = topic.posts[postId];
 
 		id = postId;
 		content = post.content;
 		mark = post.mark;
+		tips = post.tips;
 		createdAt = post.createdAt;
 		authorName = post.author.name;
 	}

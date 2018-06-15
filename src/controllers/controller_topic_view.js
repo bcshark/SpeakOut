@@ -103,7 +103,7 @@ var TopicViewController = ['$scope', '$http', '$interval', '$location', '$window
 
 var SaveCommentDialogController = ['$scope', '$uibModalInstance', 'comment',
     function($scope, $uibModalInstance, comment) {
-        $scope.comment = comment || { content: '', mark: 5 };
+        $scope.comment = comment || { content: '', mark: 5, tips: 0.0001 };
 
         $scope.ok = function() {
             $uibModalInstance.close({ action: 'save', comment: $scope.comment });

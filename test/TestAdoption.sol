@@ -65,7 +65,7 @@ contract TestAdoption {
 		uint topicId = 0;
 		uint expected = 0;
 
-		uint newPostId = adoption.newPost(topicId, "post content", 5, 1528731791);
+		uint newPostId = adoption.newPost(topicId, "post content", 5, 1, 1528731791);
 
 		Assert.equal(newPostId, expected, "New post should be recorded.");
 	}
@@ -81,11 +81,12 @@ contract TestAdoption {
 	function testUserCanGetPostDetailByTopicIdAndPostId() public {
 		uint topicId = 0;
 		uint postId = 0;
-		(uint id, string memory content, uint64 createdAt, uint8 mark, string memory authorName) = adoption.getPostDetail(topicId, postId);
+		(uint id, string memory content, uint64 createdAt, uint8 mark, uint8 tips, string memory authorName) = adoption.getPostDetail(topicId, postId);
 
 		Assert.equal(content, "post content", "Post's content should be same as input.");
 		Assert.isTrue(createdAt == 1528731791, "Post's createdAt should be same as input.");
 		Assert.isTrue(mark == 5, "Post's mark should be same as input.");
+		Assert.isTrue(tips == 1, "Post's tips should be same as input.");
 		Assert.equal(authorName, "Tester", "Post's author name should be same as input.");
 	}
 }
