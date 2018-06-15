@@ -43,7 +43,8 @@ var TopicViewController = ['$scope', '$http', '$interval', '$location', '$window
                             content: result[1],
                             createdAt: result[2].toNumber(),
                             mark: result[3].toNumber(),
-                            authorName: result[4]
+                            tips: result[4].toNumber(),
+                            authorName: result[5]
                         };
 
                         $scope.$apply(function() {
@@ -75,9 +76,8 @@ var TopicViewController = ['$scope', '$http', '$interval', '$location', '$window
             modalInstance.result.then(function(result) {
                 if (result.action == 'save') {
                     var comment = result.comment;
-                    var nowInMillseconds = new Date().getTime();
 
-                    adoption.newPost($scope.topicId, comment.content, comment.mark, nowInMillseconds).then(function(postId) {
+                    adoption.newPost($scope.topicId, comment.content, comment.mark, comment.tips).then(function(postId) {
                         console.log(postId);
                     });
                 }
@@ -103,7 +103,7 @@ var TopicViewController = ['$scope', '$http', '$interval', '$location', '$window
 
 var SaveCommentDialogController = ['$scope', '$uibModalInstance', 'comment',
     function($scope, $uibModalInstance, comment) {
-        $scope.comment = comment || { content: '', mark: 5, tips: 0.0001 };
+        $scope.comment = comment || { content: '', mark: 5, tips: 0 };
 
         $scope.ok = function() {
             $uibModalInstance.close({ action: 'save', comment: $scope.comment });

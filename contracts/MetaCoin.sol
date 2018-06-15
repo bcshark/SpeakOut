@@ -3,12 +3,14 @@ pragma solidity ^0.4.17;
 import "./ConvertLib.sol";
 
 contract MetaCoin {
+	uint constant DEFAULT_INITIAL_BALANCE = 1000000000;
+
 	mapping (address => uint) balances;
 
 	event Transfer(address indexed _from, address indexed _to, uint256 _value);
 
-	constructor() public {
-		balances[tx.origin] = 10000;
+	constructor(address owner) public {
+		balances[owner] = DEFAULT_INITIAL_BALANCE;
 	}
 
 	function sendCoin(address receiver, uint amount) public returns(bool sufficient) {

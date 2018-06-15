@@ -53,9 +53,8 @@ var TopicController = ['$scope', '$http', '$interval', '$location', '$window', '
             modalInstance.result.then(function(result) {
                 if (result.action == 'save') {
                     var topic = result.topic;
-                    var nowInMillseconds = new Date().getTime();
 
-                    adoption.newTopic(topic.title, topic.content, nowInMillseconds, nowInMillseconds + 3600 * 24 * 1000).then(function(topicId) {
+                    adoption.newTopic(topic.title, topic.content, 3600 * 24).then(function(topicId) {
                         console.log(topicId);
                     });
                 }
