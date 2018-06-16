@@ -2,6 +2,7 @@ angular.module('SpeakOutApp', ['ngRoute', 'ngResource', 'cgBusy', 'ui.bootstrap'
 
 .service('ConfigService', ConfigService)
 .service('AdoptionService', AdoptionService)
+.service('BaiduApiService', BaiduApiService)
 .controller('MainController', function($scope, $route, $routeParams, $location) {
 	$scope.$route = $route;
 	$scope.$location = $location;

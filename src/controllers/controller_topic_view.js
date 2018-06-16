@@ -89,6 +89,11 @@ var TopicViewController = ['$scope', '$http', '$interval', '$location', '$window
 
                     adoption.newPost($scope.topicId, comment.content, comment.mark, comment.tips).then(function(postId) {
                         console.log(postId);
+
+                        $scope.alerts.push({
+                            type: 'success',
+                            msg: 'Your comment will be published to global network, refresh this page later!'
+                        });
                     });
                 }
             }, function() {

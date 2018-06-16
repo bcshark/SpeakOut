@@ -56,6 +56,11 @@ var TopicController = ['$scope', '$http', '$interval', '$location', '$window', '
 
                     adoption.newTopic(topic.title, topic.content, 3600 * 24).then(function(topicId) {
                         console.log(topicId);
+
+                        $scope.alerts.push({
+                            type: 'success',
+                            msg: 'We have received your new post. It will be published to global network, refresh this page later!'
+                        });
                     });
                 }
             }, function() {
