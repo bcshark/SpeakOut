@@ -335,6 +335,12 @@ div.right-panel {
     overflow: scroll;
 }
 
+.topic_note {
+    background-color: lightyellow;
+    font-size: 10px;
+    padding: 5px;
+}
+
 .comment_detail {
     border-bottom: 1px solid rgba(232, 61, 81, 0.2);
 }
@@ -374,6 +380,12 @@ div.right-panel {
 .comment_tips {
     font-size: 10px;
     color: #999;
+}
+
+.comment_note {
+    background-color: lightyellow;
+    font-size: 10px;
+    padding: 5px;
 }
 
 .topic_detail_created {
