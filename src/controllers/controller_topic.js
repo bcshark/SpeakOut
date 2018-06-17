@@ -1,7 +1,7 @@
 "use strict";
 
-var TopicController = ['$scope', '$http', '$interval', '$location', '$window', '$uibModal', 'AdoptionService',
-    function($scope, $http, $interval, $location, $window, $uibModal, adoptionService) {
+var TopicController = ['$scope', '$http', '$interval', '$location', '$window', '$uibModal', 'AdoptionService', 'BaiduApiService',
+    function($scope, $http, $interval, $location, $window, $uibModal, adoptionService, baiduApiService) {
         var adoption = null;
 
         $scope.isContractReady = false;
@@ -83,6 +83,7 @@ var TopicController = ['$scope', '$http', '$interval', '$location', '$window', '
         });
 
         adoptionService.initWeb3();
+        baiduApiService.init();
     }
 ];
 
