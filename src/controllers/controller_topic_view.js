@@ -1,13 +1,14 @@
 "use strict";
 
-var TopicViewController = ['$scope', '$http', '$interval', '$location', '$window', '$routeParams', '$uibModal', 'AdoptionService',
-    function($scope, $http, $interval, $location, $window, $routeParams, $uibModal, adoptionService) {
+var TopicViewController = ['$scope', '$http', '$interval', '$location', '$window', '$routeParams', '$uibModal', 'AdoptionService', 'BaiduApiService',
+    function($scope, $http, $interval, $location, $window, $routeParams, $uibModal, adoptionService, baiduApiService) {
         var adoption = null;
         var ownedCoins = 0;
 
         $scope.topicId = $routeParams['topicId'];
         $scope.isContractReady = false;
         $scope.comments = [];
+        $scope.alerts = [];
 
         var tryGetTopicDetail = function() {
             adoption.getTopicDetail.call($scope.topicId).then(function(result) {
@@ -91,13 +92,22 @@ var TopicViewController = ['$scope', '$http', '$interval', '$location', '$window
                 if (result.action == 'save') {
                     var comment = result.comment;
 
-                    adoption.newPost($scope.topicId, comment.content, comment.mark, comment.tips).then(function(postId) {
-                        console.log(postId);
+                    baiduApiService.checkSpam(comment.content, function(result) {
+                        if (result && result.passed) {
+                            adoption.newPost($scope.topicId, comment.content, comment.mark, comment.tips).then(function(postId) {
+                                console.log(postId);
 
-                        $scope.alerts.push({
-                            type: 'success',
-                            msg: 'Your comment will be published to global network, refresh this page later!'
-                        });
+                                $scope.alerts.push({
+                                    type: 'success',
+                                    msg: 'Your comment will be published to global network, refresh this page later!'
+                                });
+                            });
+                        } else {
+                            $scope.alerts.push({
+                                type: 'warning',
+                                msg: 'Content may have spam content. Please remove it and retry.'
+                            });
+                        }
                     });
                 }
             }, function() {

@@ -67,7 +67,7 @@ var TopicController = ['$scope', '$http', '$interval', '$location', '$window', '
                         } else {
                             $scope.alerts.push({
                                 type: 'warning',
-                                msg: 'Content could have spam content. Please remove it and retry.'
+                                msg: 'Content may have spam content. Please remove it and retry.'
                             });
                         }
                     });
