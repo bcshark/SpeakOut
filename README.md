@@ -13,3 +13,8 @@ Run Truffle as compile and migrate platform
 
     docker run -it --name SpeakOut.Truffle -p 3000:3000 -v `pwd`/SpeakOut:/home node:8 /bin/bash
     npm install -g truffle
+
+Run Exprsss as web server
+
+    docker run -it --name SpeakOut.Web -p 8080:3000 -v `pwd`/SpeakOut:/home node:8 /bin/bash
+    npm install
