@@ -392,3 +392,7 @@ div.right-panel {
     font-size: 10px;
     text-align: right;
 }
+
+.alertUnderHeader {
+    margin-top: 40px;
+}

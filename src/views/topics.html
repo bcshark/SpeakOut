@@ -1,5 +1,4 @@
 <div cg-busy="{ promise: promise }">
-    <div uib-alert ng-repeat="alert in alerts" ng-class="'alert-' + (alert.type || 'warning')" close="closeAlert($index)" dismiss-on-timeout="{{ alertDismissTimeout }}">{{alert.msg}}</div>
     <div class="fix-title-bar">
         <div class="navbar-header">Topics</div>
         <div class="right-panel" ng-click="showSaveTopicDialog(null)">
@@ -7,6 +6,7 @@
         </div>
     </div>
     <div class="fix-content">
+        <div uib-alert ng-repeat="alert in alerts" ng-class="'alert-' + (alert.type || 'warning')" close="closeAlert($index)" dismiss-on-timeout="{{ alertDismissTimeout }}">{{alert.msg}}</div>
         <div class="topic_row_empty" ng-if="!topics || topics.length == 0" ng-click="showSaveTopicDialog(null)">
             Post a new topic now.
         </div>

@@ -66,6 +66,10 @@ var TopicViewController = ['$scope', '$http', '$interval', '$location', '$window
             $location.path('/topics/');
         }
 
+        $scope.closeAlert = function(index) {
+            $scope.alerts.splice(index, 1);
+        };
+
         $scope.showSaveCommentDialog = function(comment) {
             if (!$scope.isContractReady) return;
 

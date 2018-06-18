@@ -5,8 +5,9 @@ var bodyParser = require('body-parser');
 var multer = require('multer');
 var session = require('express-session');
 
-var web = require('./src');
-var contracts = require('./build/contracts');
+var web = express.static(path.join(__dirname, 'src'));
+var contracts = express.static(path.join(__dirname, 'build/contracts'));
+var baiduapi = require('./services/baiduapi');
 
 // var favicon = require('serve-favicon');
 
@@ -27,6 +28,7 @@ app.use(session({ secret: 'SpeakOut', resave: true, saveUninitialized: false }))
 // private
 app.use('/', web);
 app.use('/contracts', contracts);
+app.use('/baiduapi', baiduapi);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

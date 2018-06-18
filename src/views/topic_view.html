@@ -1,5 +1,4 @@
 <div cg-busy="{ promise: promise }">
-    <div uib-alert ng-repeat="alert in alerts" ng-class="'alert-' + (alert.type || 'warning')" close="closeAlert($index)" dismiss-on-timeout="{{ alertDismissTimeout }}">{{alert.msg}}</div>
     <div class="fix-title-bar">
         <div class="navbar-header">{{ topic.title }}</div>
         <div class="left-panel" ng-click="backToTopics()">
@@ -10,6 +9,7 @@
         </div>
     </div>
     <div class="fix-content">
+        <div uib-alert ng-repeat="alert in alerts" ng-class="'alert-' + (alert.type || 'warning')" close="closeAlert($index)" dismiss-on-timeout="{{ alertDismissTimeout }}">{{alert.msg}}</div>
         <div class="topic_detail">
             <div class="topic_detail_title">{{ topic.title }}</div>
             <div class="topic_detail_created">{{ topic.authorName }} | {{ topic.createdAt | date: 'yyyy-MM-dd HH:mm:ss' }}</div>

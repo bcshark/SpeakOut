@@ -54,13 +54,22 @@ var TopicController = ['$scope', '$http', '$interval', '$location', '$window', '
                 if (result.action == 'save') {
                     var topic = result.topic;
 
-                    adoption.newTopic(topic.title, topic.content, 3600 * 24).then(function(topicId) {
-                        console.log(topicId);
+                    baiduApiService.checkSpam(topic.title + "\r\n" + topic.content, function(result) {
+                        if (result && result.passed) {
+                            adoption.newTopic(topic.title, topic.content, 3600 * 24).then(function(topicId) {
+                                console.log(topicId);
 
-                        $scope.alerts.push({
-                            type: 'success',
-                            msg: 'We have received your new post. It will be published to global network, refresh this page later!'
-                        });
+                                $scope.alerts.push({
+                                    type: 'success',
+                                    msg: 'We have received your new post. It will be published to global network, refresh this page later!'
+                                });
+                            });
+                        } else {
+                            $scope.alerts.push({
+                                type: 'warning',
+                                msg: 'Content could have spam content. Please remove it and retry.'
+                            });
+                        }
                     });
                 }
             }, function() {
@@ -70,6 +79,10 @@ var TopicController = ['$scope', '$http', '$interval', '$location', '$window', '
 
         $scope.showTopicDetail = function(topic) {
             $location.path('/topic/' + topic.topicId);
+        };
+
+        $scope.closeAlert = function(index) {
+            $scope.alerts.splice(index, 1);
         };
 
         adoptionService.ready(function(service) {
@@ -83,7 +96,6 @@ var TopicController = ['$scope', '$http', '$interval', '$location', '$window', '
         });
 
         adoptionService.initWeb3();
-        baiduApiService.init();
     }
 ];
 
