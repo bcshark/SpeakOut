@@ -1,6 +1,6 @@
 module.exports = {
     "baidu": {
-        "enabled": false,
+        "enabled": true,
         "hostname": "aip.baidubce.com",
         "oauth_params": {
             "grant_type": "client_credentials",
