@@ -25,10 +25,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(session({ secret: 'SpeakOut', resave: true, saveUninitialized: false }));
 
-// private
-app.use('/', web);
+// add routes
 app.use('/contracts', contracts);
 app.use('/baiduapi', baiduapi);
+app.use('/', web);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -37,11 +37,9 @@ app.use(function(req, res, next) {
     next(err);
 });
 
-// error handlers
-
-// development error handler
-// will print stacktrace
+console.log('run application as environment: ' + app.get('env'));
 if (app.get('env') === 'development') {
+    // development error handler, will print stacktrace
     app.use(function(err, req, res, next) {
         res.status(err.status || 500);
         res.render('error', {
@@ -49,16 +47,15 @@ if (app.get('env') === 'development') {
             error: err
         });
     });
-}
-
-// production error handler
-// no stacktraces leaked to user
-app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
-    res.render('error', {
-        message: err.message,
-        error: {}
+} else {
+    // production error handler, no stacktraces leaked to user
+    app.use(function(err, req, res, next) {
+        res.status(err.status || 500);
+        res.render('error', {
+            message: err.message,
+            error: {}
+        });
     });
-});
+}
 
 module.exports = app;
