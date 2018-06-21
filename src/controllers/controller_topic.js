@@ -7,6 +7,7 @@ var TopicController = ['$scope', '$http', '$interval', '$location', '$window', '
         $scope.topics = [];
         $scope.categories = [];
         $scope.selectedCategoryId = 0;
+        $scope.alertDismissTimeout = 3000;
 
         var updateTopicList = function(result) {
             var topic = {

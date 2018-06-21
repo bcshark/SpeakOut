@@ -7,6 +7,7 @@ var TopicViewController = ['$scope', '$http', '$interval', '$location', '$window
         $scope.isContractReady = false;
         $scope.comments = [];
         $scope.alerts = [];
+        $scope.alertDismissTimeout = 3000;
 
         var tryGetTopicDetail = function() {
             adoption.getTopicDetail.call($scope.topicId).then(function(result) {
