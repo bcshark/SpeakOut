@@ -18,10 +18,11 @@ var TopicViewController = ['$scope', '$http', '$interval', '$location', '$window
                     topicId: result[0],
                     title: result[1],
                     content: result[2],
-                    createdAt: result[3].toNumber(),
-                    updatedAt: result[4].toNumber(),
-                    expiredAt: result[5].toNumber(),
-                    authorName: result[6]
+                    category: result[3].toNumber(),
+                    createdAt: result[4].toNumber(),
+                    updatedAt: result[5].toNumber(),
+                    expiredAt: result[6].toNumber(),
+                    authorName: result[7]
                 };
 
                 $scope.$apply(function() {

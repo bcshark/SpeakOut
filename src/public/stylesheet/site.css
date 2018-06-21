@@ -212,6 +212,7 @@ div.left-panel {
 
 div.right-panel {
     height: 100%;
+    min-width: 72px;
     position: absolute;
     vertical-align: middle;
     top: 0;
@@ -223,6 +224,12 @@ div.right-panel {
 
 .fix-title-bar .navbar-header {
     font-size: 16px;
+    height: 40px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-left: 24px;
+    margin-right: 72px;
 }
 
 .fix-title-bar .navbar-nav {
@@ -311,7 +318,7 @@ div.right-panel {
 }
 
 .topic_category {
-    padding: 3px 6px 3px 4px; 
+    padding: 3px 6px 3px 4px;
     font-size: 12px;
     margin: 2px 0px 2px 2px;
     cursor: pointer;
@@ -371,18 +378,14 @@ div.right-panel {
     cursor: pointer;
 }
 
-.comment_index {
-
-}
+.comment_index {}
 
 .comment_content {
     font-size: 14px;
     padding-left: 10px;
 }
 
-.comment_mark {
-    
-}
+.comment_mark {}
 
 .comment_created {
     font-size: 5px;
