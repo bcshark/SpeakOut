@@ -16,10 +16,10 @@
             Post a new topic now.
         </div>
         <div class="topic_row" ng-repeat="topic in topics" ng-click="showTopicDetail(topic)">
-            <div class="topic_index">{{ $index + 1 }}</div>
+            <div class="topic_index">{{ $index + 1 }}<sup>#</sup></div>
             <div class="topic_title">{{ topic.title }}</div>
-            <div class="topic_author">{{ topic.authorName }}</div>
-            <div class="topic_created">{{ topic.createdAt | date: 'yyyy-MM-dd HH:mm:ss' }}</div>
+            <div class="topic_author"><i class="fas fa-fire" style="margin-right: 5px;"></i>{{ topic.numPosts }}</div>
+            <div class="topic_created">{{ topic.authorName }} | {{ topic.createdAt | date: 'yyyy-MM-dd HH:mm:ss' }}</div>
         </div>
     </div>
     <script id="SaveTopicDialog.html" type="text/ng-template">

@@ -28,7 +28,8 @@ var TopicController = ['$scope', '$http', '$interval', '$location', '$window', '
                             createdAt: result[4].toNumber(),
                             updatedAt: result[5].toNumber(),
                             expiredAt: result[6].toNumber(),
-                            authorName: result[7]
+                            authorName: result[7],
+                            numPosts: result[8].toNumber()
                         };
 
                         if ($scope.selectedCategoryId === 0 || topic.category === $scope.selectedCategoryId) {

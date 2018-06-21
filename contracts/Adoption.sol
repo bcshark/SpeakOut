@@ -97,7 +97,7 @@ contract Adoption {
 		require(metaCoin.sendCoin(this, msg.sender, DEFAULT_NEW_TOPIC_REWARD));
 	}
 
-	function getTopicDetail(uint topicId) public view returns (uint id, string title, string content, uint category, uint createdAt, uint updatedAt, uint expiredAt, string authorName) {
+	function getTopicDetail(uint topicId) public view returns (uint id, string title, string content, uint category, uint createdAt, uint updatedAt, uint expiredAt, string authorName, uint numPosts) {
 		Topic storage topic = topics[topicId];
 
 		id = topicId;
@@ -108,6 +108,7 @@ contract Adoption {
 		updatedAt = topic.updatedAt;
 		expiredAt = topic.expiredAt;
 		authorName = topic.author.name;
+		numPosts = topic.numPosts;
 	}
 
     function getTopicCount() public view returns (uint topicCount) {

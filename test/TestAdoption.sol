@@ -85,7 +85,7 @@ contract TestAdoption {
 
 	function testUserCanGetTopicDetailByTopicId() public {
 		uint topicId = 0;
-		(uint id, string memory title, string memory content, uint category, uint createdAt, uint updatedAt, uint expiredAt, string memory authorName) = adoption.getTopicDetail(topicId);
+		(uint id, string memory title, string memory content, uint category, uint createdAt, uint updatedAt, uint expiredAt, string memory authorName, uint numPosts) = adoption.getTopicDetail(topicId);
 
 		Assert.equal(id, topicId, "Topic's id should be same as input.");
 		Assert.equal(title, "title", "Topic's title should be same as input.");
@@ -95,6 +95,7 @@ contract TestAdoption {
 		Assert.isTrue(updatedAt == topicsCreatedAt[0], "Topic's updatedAt should be same as input.");
 		Assert.isTrue(expiredAt == topicsCreatedAt[0] + 3600 * 24 * 1000, "Topic's expiredAt should be same as input.");
 		Assert.equal(authorName, "Tester", "Topic's author name should be same as input.");
+		Assert.isTrue(numPosts == 0, "Topic's initial posts number should be zero.");
 	}
 
 	function testUserCanNewPostOnTopic() public {
