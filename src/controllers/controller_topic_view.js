@@ -11,8 +11,6 @@ var TopicViewController = ['$scope', '$http', '$interval', '$location', '$window
 
         var tryGetTopicDetail = function() {
             adoption.getTopicDetail.call($scope.topicId).then(function(result) {
-                console.log(result);
-
                 var topic = {
                     topicId: result[0],
                     title: result[1],
@@ -32,8 +30,6 @@ var TopicViewController = ['$scope', '$http', '$interval', '$location', '$window
         };
 
         var updateCommentsList = function(result) {
-            console.log(result);
-
             var comment = {
                 postId: result[0],
                 content: result[1],

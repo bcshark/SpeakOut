@@ -1,4 +1,4 @@
-var ConfigService = function($resource, $http) {
+var ConfigService = ['$resource', '$http', function($resource, $http) {
     var web3_url = "http://127.0.0.1:8545";
 
     var config = {
@@ -9,4 +9,4 @@ var ConfigService = function($resource, $http) {
     };
 
     return config;
-};
+}];
