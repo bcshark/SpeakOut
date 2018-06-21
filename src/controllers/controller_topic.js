@@ -1,5 +1,3 @@
-"use strict";
-
 var TopicController = ['$scope', '$http', '$interval', '$location', '$window', '$uibModal', 'AdoptionService', 'BaiduApiService', 'AppService',
     function($scope, $http, $interval, $location, $window, $uibModal, adoptionService, baiduApiService, appService) {
         var adoption = null;
@@ -10,6 +8,26 @@ var TopicController = ['$scope', '$http', '$interval', '$location', '$window', '
         $scope.categories = [];
         $scope.selectedCategoryId = 0;
 
+        var updateTopicList = function(result) {
+            var topic = {
+                topicId: result[0],
+                title: result[1],
+                content: result[2],
+                category: result[3].toNumber(),
+                createdAt: result[4].toNumber(),
+                updatedAt: result[5].toNumber(),
+                expiredAt: result[6].toNumber(),
+                authorName: result[7],
+                numPosts: result[8].toNumber()
+            };
+
+            if ($scope.selectedCategoryId === 0 || topic.category === $scope.selectedCategoryId) {
+                $scope.$apply(function() {
+                    $scope.topics.push(topic);
+                });
+            }
+        };
+
         var tryGetTopics = function() {
             $scope.topics = [];
 
@@ -19,25 +37,7 @@ var TopicController = ['$scope', '$http', '$interval', '$location', '$window', '
                 var max_count = Math.max(topicCount.toNumber() - 10, 0);
 
                 for (var i = topicCount.toNumber() - 1; i >= max_count; i--) {
-                    adoption.getTopicDetail.call(i).then(function(result) {
-                        var topic = {
-                            topicId: result[0],
-                            title: result[1],
-                            content: result[2],
-                            category: result[3].toNumber(),
-                            createdAt: result[4].toNumber(),
-                            updatedAt: result[5].toNumber(),
-                            expiredAt: result[6].toNumber(),
-                            authorName: result[7],
-                            numPosts: result[8].toNumber()
-                        };
-
-                        if ($scope.selectedCategoryId === 0 || topic.category === $scope.selectedCategoryId) {
-                            $scope.$apply(function() {
-                                $scope.topics.push(topic);
-                            });
-                        }
-                    });
+                    adoption.getTopicDetail.call(i).then(updateTopicList);
                 }
             });
         };

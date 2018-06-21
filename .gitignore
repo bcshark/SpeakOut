@@ -63,4 +63,8 @@ typings/
 # truffle build directory
 build
 
+# grunt build directory
+src/dist
+src/index.min.js
+
 .DS_Store

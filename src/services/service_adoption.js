@@ -1,5 +1,3 @@
-"use strict";
-
 var AdoptionService = ['$resource', '$http', 'ConfigService', function($resource, $http, configService) {
     var service = {
         web3Provider: null,

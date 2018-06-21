@@ -1,5 +1,3 @@
-"use strict";
-
 var RegisterController = ['$scope', '$http', '$interval', '$location', 'AdoptionService',
     function($scope, $http, $interval, $location, adoptionService) {
         var adoption = null;

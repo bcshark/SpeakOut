@@ -1,5 +1,3 @@
-"use strict";
-
 var ConfigService = function($resource, $http) {
     var web3_url = "http://127.0.0.1:8545";
 

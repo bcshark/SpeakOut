@@ -1,5 +1,3 @@
-"use strict";
-
 var AppService = ['$resource', '$http', 'ConfigService', function($resource, $http, configService) {
     var service = {
 		categoires : [],

@@ -1,11 +1,9 @@
-"use strict";
-
 var TopicViewController = ['$scope', '$http', '$interval', '$location', '$window', '$routeParams', '$uibModal', 'AdoptionService', 'BaiduApiService',
     function($scope, $http, $interval, $location, $window, $routeParams, $uibModal, adoptionService, baiduApiService) {
         var adoption = null;
         var ownedCoins = 0;
 
-        $scope.topicId = $routeParams['topicId'];
+        $scope.topicId = $routeParams.topicId;
         $scope.isContractReady = false;
         $scope.comments = [];
         $scope.alerts = [];
@@ -32,6 +30,23 @@ var TopicViewController = ['$scope', '$http', '$interval', '$location', '$window
             });
         };
 
+        var updateCommentsList = function(result) {
+            console.log(result);
+
+            var comment = {
+                postId: result[0],
+                content: result[1],
+                createdAt: result[2].toNumber(),
+                mark: result[3].toNumber(),
+                tips: result[4].toNumber(),
+                authorName: result[5]
+            };
+
+            $scope.$apply(function() {
+                $scope.comments.push(comment);
+            });
+        };
+
         var tryGetComments = function() {
             adoption.getPostCountByTopic.call($scope.topicId).then(function(postCount) {
                 console.log('postCount: ' + postCount.toNumber());
@@ -39,22 +54,7 @@ var TopicViewController = ['$scope', '$http', '$interval', '$location', '$window
                 var max_count = Math.max(postCount.toNumber() - 10, 0);
 
                 for (var i = postCount.toNumber() - 1; i >= max_count; i--) {
-                    adoption.getPostDetail.call($scope.topicId, i).then(function(result) {
-                        console.log(result);
-
-                        var comment = {
-                            postId: result[0],
-                            content: result[1],
-                            createdAt: result[2].toNumber(),
-                            mark: result[3].toNumber(),
-                            tips: result[4].toNumber(),
-                            authorName: result[5]
-                        };
-
-                        $scope.$apply(function() {
-                            $scope.comments.push(comment);
-                        });
-                    });
+                    adoption.getPostDetail.call($scope.topicId, i).then(updateCommentsList);
                 }
             });
         };
@@ -67,7 +67,7 @@ var TopicViewController = ['$scope', '$http', '$interval', '$location', '$window
 
         $scope.backToTopics = function() {
             $location.path('/topics/');
-        }
+        };
 
         $scope.closeAlert = function(index) {
             $scope.alerts.splice(index, 1);
@@ -115,7 +115,7 @@ var TopicViewController = ['$scope', '$http', '$interval', '$location', '$window
             }, function() {
                 // dialog cancelled                         
             });
-        }
+        };
 
         adoptionService.ready(function(service) {
             adoption = service;
