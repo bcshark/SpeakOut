@@ -41,7 +41,7 @@
                 </div>
                 <div class="form-group">
                     <label for="saveTopicDialogCategory">Category</label>
-                    <div id="saveTopicDialogCategory" class="row">
+                    <div id="saveTopicDialogCategory" class="row" style="padding: 0px 15px;">
                         <div ng-repeat="category in categories" class="col-xs-4 category_list_item" ng-click="changeCategory(category)">
                             <div class="category_list_item_inner" ng-class="{ 'active_category_list_item_inner': category.id == topic.category }">{{ category.name }}</div>
                         </div>
