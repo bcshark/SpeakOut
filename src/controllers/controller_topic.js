@@ -7,8 +7,12 @@ var TopicController = ['$scope', '$http', '$interval', '$location', '$window', '
         $scope.isContractReady = false;
         $scope.alerts = [];
         $scope.topics = [];
+        $scope.categories = [];
+        $scope.selectedCategoryId = 0;
 
         var tryGetTopics = function() {
+            $scope.topics = [];
+
             adoption.getTopicCount.call().then(function(topicCount) {
                 console.log('topicCount: ' + topicCount.toNumber());
 
@@ -22,15 +26,18 @@ var TopicController = ['$scope', '$http', '$interval', '$location', '$window', '
                             topicId: result[0],
                             title: result[1],
                             content: result[2],
-                            createdAt: result[3].toNumber(),
-                            updatedAt: result[4].toNumber(),
-                            expiredAt: result[5].toNumber(),
-                            authorName: result[6]
+                            category: result[3].toNumber(),
+                            createdAt: result[4].toNumber(),
+                            updatedAt: result[5].toNumber(),
+                            expiredAt: result[6].toNumber(),
+                            authorName: result[7]
                         };
 
-                        $scope.$apply(function() {
-                            $scope.topics.push(topic);
-                        });
+                        if ($scope.selectedCategoryId === 0 || topic.category === $scope.selectedCategoryId) {
+                            $scope.$apply(function() {
+                                $scope.topics.push(topic);
+                            });
+                        }
                     });
                 }
             });
@@ -46,6 +53,12 @@ var TopicController = ['$scope', '$http', '$interval', '$location', '$window', '
                 resolve: {
                     topic: function() {
                         return topic;
+                    },
+                    categories: function() {
+                        return $scope.categories;
+                    },
+                    selectedCategoryId: function() {
+                        return $scope.selectedCategoryId;
                     }
                 }
             });
@@ -56,7 +69,7 @@ var TopicController = ['$scope', '$http', '$interval', '$location', '$window', '
 
                     baiduApiService.checkSpam(topic.title + "\r\n" + topic.content, function(result) {
                         if (result && result.passed) {
-                            adoption.newTopic(topic.title, topic.content, 3600 * 24).then(function(topicId) {
+                            adoption.newTopic(topic.title, topic.content, topic.category, 3600 * 24).then(function(topicId) {
                                 console.log(topicId);
 
                                 $scope.alerts.push({
@@ -85,6 +98,11 @@ var TopicController = ['$scope', '$http', '$interval', '$location', '$window', '
             $scope.alerts.splice(index, 1);
         };
 
+        $scope.changeCategory = function(category) {
+            $scope.selectedCategoryId = category.id;
+            tryGetTopics();
+        };
+
         adoptionService.ready(function(service) {
             adoption = service;
 
@@ -96,15 +114,21 @@ var TopicController = ['$scope', '$http', '$interval', '$location', '$window', '
         });
 
         adoptionService.initWeb3();
-		appService.getCategories(function(categories) {
-			$scope.categories = categories;	
-		});
+        appService.getCategories(function(categories) {
+            $scope.categories = categories;
+        });
     }
 ];
 
-var SaveTopicDialogController = ['$scope', '$uibModalInstance', 'topic',
-    function($scope, $uibModalInstance, topic) {
-        $scope.topic = topic || { title: '', content: '' };
+var SaveTopicDialogController = ['$scope', '$uibModalInstance', 'topic', 'categories', 'selectedCategoryId',
+    function($scope, $uibModalInstance, topic, categories, selectedCategoryId) {
+        $scope.topic = topic || { title: '', content: '', category: selectedCategoryId || 0 };
+        $scope.categories = categories;
+
+        $scope.changeCategory = function(category) {
+            $scope.topic.category = category.id;
+            console.log(category.name);
+        };
 
         $scope.ok = function() {
             $uibModalInstance.close({ action: 'save', topic: $scope.topic });

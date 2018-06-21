@@ -310,6 +310,23 @@ div.right-panel {
     padding: 5px;
 }
 
+.topic_category {
+    padding: 3px 6px 3px 4px; 
+    font-size: 12px;
+    margin: 2px 0px 2px 2px;
+    cursor: pointer;
+    border-right: 1px dotted #ddd;
+}
+
+.topic_category:last-child {
+    border-right: 0;
+}
+
+.active_category {
+    border-bottom: 2px solid rgba(232, 61, 81, 0.8);
+    color: rgba(232, 61, 81, 1);
+}
+
 .topic_detail_content {
     font-size: 18px;
 }
@@ -395,4 +412,21 @@ div.right-panel {
 
 .alertUnderHeader {
     margin-top: 40px;
+}
+
+.category_list_item {
+    padding: 2px;
+}
+
+.category_list_item_inner {
+    font-size: 12px;
+    box-sizing: border-box;
+    border: 1px dotted #ccc;
+    padding: 5px 3px;
+    cursor: pointer;
+}
+
+.active_category_list_item_inner {
+    border: 1px dashed rgba(232, 61, 81, 1);
+    color: rgba(232, 61, 81, 1);
 }
