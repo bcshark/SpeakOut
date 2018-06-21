@@ -20,8 +20,6 @@ var TopicController = ['$scope', '$http', '$interval', '$location', '$window', '
 
                 for (var i = topicCount.toNumber() - 1; i >= max_count; i--) {
                     adoption.getTopicDetail.call(i).then(function(result) {
-                        console.log(result);
-
                         var topic = {
                             topicId: result[0],
                             title: result[1],
