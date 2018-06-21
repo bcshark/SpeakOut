@@ -10,6 +10,14 @@ var RegisterController = ['$scope', '$http', '$interval', '$location', 'Adoption
         $scope.alertDismissTimeout = 3000;
         $scope.user = {};
 
+        var tryGetBalance = function() {
+            adoption.getBalance().then(function(balance) {
+                $scope.$apply(function() {
+                    $scope.user.balance = balance.toNumber();
+                });
+            });
+        };
+
         var tryGetRegisteredName = function() {
             // check whether account is already registered
             web3.eth.getAccounts(function(error, accounts) {
@@ -21,6 +29,8 @@ var RegisterController = ['$scope', '$http', '$interval', '$location', 'Adoption
 
                 adoption.getPosterName(account).then(function(posterName) {
                     if (posterName !== undefined && posterName !== null && posterName !== '') {
+                        tryGetBalance();
+
                         $scope.$apply(function() {
                             $scope.user.username = posterName;
                             $scope.isUserRegistered = true;

@@ -7,6 +7,7 @@
                     <form>
                         <h1>Welcome back!</h1>
                         <h1><strong>{{ user.username }}</strong></h1>
+                        <h5>You have <strong>{{ user.balance }}</strong> coins!</h5>
                         <div>
                             <a class="btn btn-default" ng-click="enter()" ng-disabled="!isContractReady">Enter</a>
                         </div>
