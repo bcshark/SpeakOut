@@ -54,7 +54,7 @@ contract TestAdoption {
 
 	function testUserCanNewTopic() public {
 		uint expected = 0;
-		(uint newTopicId, uint createdAt) = adoption.newTopic("title", "content", 3600 * 24);
+		(uint newTopicId, uint createdAt) = adoption.newTopic("title", "content", 1, 3600 * 24);
 
 		topicsCreatedAt[0] = createdAt;
 
@@ -69,7 +69,7 @@ contract TestAdoption {
 
 	function testUserCanNewTopicLongContent() public {
 		uint expected = 1;
-		(uint newTopicId, uint createdAt) = adoption.newTopic("title", "1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890", 3600 * 24);
+		(uint newTopicId, uint createdAt) = adoption.newTopic("title", "1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890", 1, 3600 * 24);
 
 		topicsCreatedAt[1] = createdAt;
 
@@ -85,11 +85,12 @@ contract TestAdoption {
 
 	function testUserCanGetTopicDetailByTopicId() public {
 		uint topicId = 0;
-		(uint id, string memory title, string memory content, uint createdAt, uint updatedAt, uint expiredAt, string memory authorName) = adoption.getTopicDetail(topicId);
+		(uint id, string memory title, string memory content, uint category, uint createdAt, uint updatedAt, uint expiredAt, string memory authorName) = adoption.getTopicDetail(topicId);
 
 		Assert.equal(id, topicId, "Topic's id should be same as input.");
 		Assert.equal(title, "title", "Topic's title should be same as input.");
 		Assert.equal(content, "content", "Topic's content should be same as input.");
+		Assert.isTrue(category == 1, "Topic's cateogry should be same as input.");
 		Assert.isTrue(createdAt == topicsCreatedAt[0], "Topic's createdAt should be same as input.");
 		Assert.isTrue(updatedAt == topicsCreatedAt[0], "Topic's updatedAt should be same as input.");
 		Assert.isTrue(expiredAt == topicsCreatedAt[0] + 3600 * 24 * 1000, "Topic's expiredAt should be same as input.");

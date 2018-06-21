@@ -6,6 +6,11 @@
         </div>
     </div>
     <div class="fix-content">
+		<!--
+		<ul class="nav nav-pills" ng-repeat="category in categories">
+			<li><a ng-click="" toggle="tab">{{ category.name }}</a></li>
+        </ul>
+		-->
         <div uib-alert ng-repeat="alert in alerts" ng-class="'alert-' + (alert.type || 'warning')" close="closeAlert($index)" dismiss-on-timeout="{{ alertDismissTimeout }}">{{alert.msg}}</div>
         <div class="topic_row_empty" ng-if="!topics || topics.length == 0" ng-click="showSaveTopicDialog(null)">
             Post a new topic now.

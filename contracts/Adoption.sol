@@ -27,6 +27,7 @@ contract Adoption {
 		string title;
 		string content;
 		Poster author;
+		uint category;
 		uint createdAt;
 		uint updatedAt;
 		uint expiredAt;
@@ -76,7 +77,7 @@ contract Adoption {
 		posterName = posters[addr].name;
 	}
 
-	function newTopic(string title, string content, uint expiredAt) public returns (uint topicId, uint createdAt) {
+	function newTopic(string title, string content, uint category, uint expiredAt) public returns (uint topicId, uint createdAt) {
 		Poster storage author = posters[msg.sender];
 
 		topicId = numTopics++;
@@ -86,6 +87,7 @@ contract Adoption {
 			title,
 			content,
 			author,
+			category,
 			createdAt,
 			createdAt,
 			createdAt + expiredAt * 1000,
@@ -95,12 +97,13 @@ contract Adoption {
 		require(metaCoin.sendCoin(this, msg.sender, DEFAULT_NEW_TOPIC_REWARD));
 	}
 
-	function getTopicDetail(uint topicId) public view returns (uint id, string title, string content, uint createdAt, uint updatedAt, uint expiredAt, string authorName) {
+	function getTopicDetail(uint topicId) public view returns (uint id, string title, string content, uint category, uint createdAt, uint updatedAt, uint expiredAt, string authorName) {
 		Topic storage topic = topics[topicId];
 
 		id = topicId;
 		title = topic.title;
 		content = topic.content;
+		category = topic.category;
 		createdAt = topic.createdAt;
 		updatedAt = topic.updatedAt;
 		expiredAt = topic.expiredAt;

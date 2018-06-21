@@ -1,0 +1,9 @@
+[
+	{ "id": 0, "name": "News" },
+	{ "id": 1, "name": "Sports" },
+	{ "id": 2, "name": "Finance" },
+	{ "id": 3, "name": "Entertainment" },
+	{ "id": 4, "name": "Lifestyle" },
+	{ "id": 5, "name": "Travel" },
+	{ "id": 6, "name": "Game" }
+]
